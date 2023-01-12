@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/locationHolder">
+
+            <include
+                android:id="@+id/location_cave"
+                layout="@layout/item_location" />
+
+            <include
+                android:id="@+id/location_portal"
+                layout="@layout/item_location" />
+
+            <include
+                android:id="@+id/location_northern_swamp"
+                layout="@layout/item_location" />
+
+            <include
+                android:id="@+id/location_southern_swamp"
+                layout="@layout/item_location" />
+
+            <include
+                android:id="@+id/location_near_mine"
+                layout="@layout/item_location" />
+
+            <include
+                android:id="@+id/location_western_mine"
+                layout="@layout/item_location" />
+
+            <include
+                android:id="@+id/location_far_forest"
+                layout="@layout/item_location" />
+
+            <include
+                android:id="@+id/location_near_forest"
+                layout="@layout/item_location" />
+
+            <include
+                android:id="@+id/location_lake"
+                layout="@layout/item_location" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
