@@ -1,6 +1,7 @@
 package com.ant.troubledtimes
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 
 class FragmentLocations : Fragment() {
     private var _binding: FragmentLocationsBinding? = null
@@ -33,6 +35,12 @@ class FragmentLocations : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.frLocationSubscribeSwitch.setOnCheckedChangeListener { _, b ->
+            if (b) subscribeMessagesTopics()
+            else unSubscribeMessagesTopics()
+        }
+
         val locationStatusReference = getDatabaseReference()
 
         locationStatusReference.addValueEventListener(object : ValueEventListener {
@@ -90,6 +98,31 @@ class FragmentLocations : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun subscribeMessagesTopics() {
+        Firebase.messaging.subscribeToTopic("location")
+            .addOnCompleteListener { task ->
+                var msg = "Subscribed"
+                if (!task.isSuccessful) {
+                    msg = "Subscribe failed"
+                }
+                Log.d("TAG", msg)
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+            }
+    }
+
+
+    private fun unSubscribeMessagesTopics() {
+        Firebase.messaging.unsubscribeFromTopic("location")
+            .addOnCompleteListener { task ->
+                var msg = "Unsubscribed"
+                if (!task.isSuccessful) {
+                    msg = "Unsubscribe failed"
+                }
+                Log.d("TAG", msg)
+                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun bindLocationItem(itemView: ItemLocationBinding, location: Location) {
